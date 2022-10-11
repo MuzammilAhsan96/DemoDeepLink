@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.application.demodeeplink">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.application.demodeeplink.ui.base.CustomApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DemoDeepLink"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:theme,android:allowBackup,android:usesCleartextTraffic,label,icon,roundIcon"
+        tools:targetApi="31">
+
+        <!-- Launcher Activity to handle incoming Branch intents -->
+        <activity
+            android:name="com.application.demodeeplink.ui.main.SplashScreenActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Custom App link example. You can create your custom app link domain on Branch dash board-->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="link.verpm.com"
+                    android:scheme="https" /> <!-- Custom App link - Live -->
+                <data
+                    android:host="verpm-alternate.app.link"
+                    android:scheme="https" /> <!-- Custom App Alternate link - Live -->
+                <data
+                    android:host="verpm.test-app.link"
+                    android:scheme="https" /> <!-- Custom App link - Test -->
+                <data
+                    android:host="verpm-alternate.test-app.link"
+                    android:scheme="https" /> <!-- Custom App Alternate link - Test -->
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name="com.application.demodeeplink.ui.base.BaseActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name="com.application.demodeeplink.ui.main.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+
+        <meta-data
+            android:name="io.branch.sdk.TestMode"
+            android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_ep6WzUgjjUSKvhLlvfvsZmfhExo1aQzp" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_test_hb35BQkniVTIrcUnrpvxYnaduxk0fGrA" />
+
+        <!-- Optional. Set to true to disable auto deep link feature-->
+        <meta-data
+            android:name="io.branch.sdk.auto_link_disable"
+            android:value="false" />
+
+
+    </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
+
+</manifest>
